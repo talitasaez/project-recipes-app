@@ -26,16 +26,6 @@ function Login() {
     setPassword(target.value);
   });
 
-  // const contexto = useMemo(() => ({
-  //   email,
-  //   password,
-  //   handleChangeEmail,
-  //   handleChangePassword,
-  //   verifyBtn,
-  //   btnIsDisabled,
-  // }), [email, password, handleChangeEmail,
-  //   handleChangePassword, verifyBtn, btnIsDisabled]);
-
   return (
     <form>
       <label htmlFor="email">
