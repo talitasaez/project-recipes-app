@@ -2,14 +2,15 @@ import React from 'react';
 import recipesProvider from './Context/recipesProvider';
 import './App.css';
 import Login from './pages/Login';
+import RecipesProvider from './Context/recipesProvider';
 
 
 function App() {
   return (
     <div className="container">
-      <recipesProvider>
+      <RecipesProvider>
         <Login />
-      </recipesProvider>
+      </RecipesProvider>
     </div>
   );
 }
