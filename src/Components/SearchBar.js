@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
-import Context from '../context/Context';
+import Context from '../context/recipesContext';
 import getRecipes from '../helpers/getRecipes';
 
 export default function SearchBar() {
