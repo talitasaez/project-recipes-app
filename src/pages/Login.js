@@ -9,10 +9,12 @@ function Login() {
     const regex = /\S+@\S+\.\S+/;
     const minLength = 6;
     const verifyEmail = email && regex.test(email);
-    const verifyPassword = password.length >= minLength;
+    const verifyPassword = password.length > minLength;
     const emailAndPassword = verifyEmail && verifyPassword;
     setBtnIsDisabled(!(emailAndPassword));
   }, [email, password]);
+  const user = { email };
+  localStorage.setItem('user', JSON.stringify(user));
 
   useEffect(() => {
     verifyBtn();
