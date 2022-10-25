@@ -1,9 +1,11 @@
 import React, { useEffect, useState, useCallback } from 'react';
+import { useHistory } from 'react-router-dom';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [btnIsDisabled, setBtnIsDisabled] = useState(true);
+  const history = useHistory();
 
   const verifyBtn = useCallback(() => {
     const regex = /\S+@\S+\.\S+/;
@@ -13,8 +15,12 @@ function Login() {
     const emailAndPassword = verifyEmail && verifyPassword;
     setBtnIsDisabled(!(emailAndPassword));
   }, [email, password]);
-  const user = { email };
-  localStorage.setItem('user', JSON.stringify(user));
+
+  const click = () => {
+    const user = { email };
+    localStorage.setItem('user', JSON.stringify(user));
+    history.push('/meals');
+  };
 
   useEffect(() => {
     verifyBtn();
@@ -56,7 +62,7 @@ function Login() {
         data-testid="login-submit-btn"
         type="button"
         disabled={ btnIsDisabled }
-        onClick={ verifyBtn }
+        onClick={ click }
       >
         Enter
       </button>
