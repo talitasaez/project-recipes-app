@@ -41,8 +41,8 @@ function Recipes() {
   return (
     <main>
       <Header title={ titleToHeader } />
-      <div id="recipes-container">
-        <div id="category-list-container">
+      <div className="recipes-container">
+        <div className="category-list-container">
           { categoryList.map((category, index) => {
             const categoryName = category.strCategory;
             return (
