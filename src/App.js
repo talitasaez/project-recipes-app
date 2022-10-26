@@ -1,13 +1,22 @@
 import React from 'react';
 import RecipesProvider from './Context/recipesProvider';
 import './App.css';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Login from './pages/Login';
+import Recipes from './pages/Recipes';
+import RecipesProvider from './Context/recipesProvider';
 
 function App() {
   return (
     <div className="container">
       <RecipesProvider>
-        <Login />
+        <BrowserRouter>
+          <Switch>
+            <Route exact path="/" component={ Login } />
+            <Route path="/meals" component={ Recipes } />
+            <Route path="/drinks" component={ Recipes } />
+          </Switch>
+        </BrowserRouter>
       </RecipesProvider>
     </div>
   );
