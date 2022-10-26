@@ -4,7 +4,6 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Login from './pages/Login';
 import Recipes from './pages/Recipes';
 import RecipesProvider from './Context/recipesProvider';
-import Recipes from './pages/Recipes';
 
 function App() {
   return (

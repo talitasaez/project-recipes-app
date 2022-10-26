@@ -19,7 +19,7 @@ function RecipeCard(props) {
   }
 
   return (
-    <div id="card-container">
+    <div className="card-container">
       <h3 data-testid={ `${index}-card-img` }>
         {nameRecipe}
       </h3>

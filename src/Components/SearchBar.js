@@ -28,19 +28,17 @@ export default function SearchBar() {
     else setDisplayRecipes([]);
   };
 
-  const redirectTo = (path) => {
-    if (path === '/foods') history.push(`/foods/${displayRecipes[0].idMeal}`);
-    else history.push(`/drinks/${displayRecipes[0].idDrink}`);
-  };
-
   useEffect(() => {
+    const redirectTo = (path) => {
+      if (path === '/foods') history.push(`/foods/${displayRecipes[0].idMeal}`);
+      else history.push(`/drinks/${displayRecipes[0].idDrink}`);
+    };
     if (displayRecipes.length === 1 && (searchValue && type)) {
       redirectTo(pathname);
     } else if (displayRecipes.length === 0 && !mainLoading) {
       createAlertNoRecipes();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [displayRecipes]);
+  }, [displayRecipes, mainLoading, pathname, history, searchValue, type]);
 
   return (
     <form>
