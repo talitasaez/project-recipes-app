@@ -16,7 +16,7 @@ function Login() {
     setBtnIsDisabled(!(emailAndPassword));
   }, [email, password]);
 
-  const click = () => {
+  const handleSubmit = () => {
     const user = { email };
     localStorage.setItem('user', JSON.stringify(user));
     history.push('/meals');
@@ -62,7 +62,7 @@ function Login() {
         data-testid="login-submit-btn"
         type="button"
         disabled={ btnIsDisabled }
-        onClick={ click }
+        onClick={ handleSubmit }
       >
         Enter
       </button>

@@ -1,0 +1,31 @@
+
+section {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  gap: 2rem;
+  margin-bottom: 5rem;
+}
+
+#recipes-container {
+  display: flex;
+  flex-direction: column;
+  width: 80vw;
+  margin: 0 auto;
+}
+
+#card-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 330px;
+}
+
+#category-list-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 60%;
+  margin: 0 auto;
+}

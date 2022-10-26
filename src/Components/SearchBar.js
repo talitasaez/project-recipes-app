@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
-import Context from '../context/recipesContext';
+import RecipesContext from '../Context/recipesContext';
 import getRecipes from '../helpers/getRecipes';
 
 export default function SearchBar() {
   const { mainLoading, displayRecipes,
-    setDisplayRecipes, searchValue } = useContext(Context);
+    setDisplayRecipes, searchValue } = useContext(RecipesContext);
   const [type, setType] = useState('');
   const history = useHistory();
   const { location: { pathname } } = history;
