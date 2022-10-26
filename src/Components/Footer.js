@@ -17,8 +17,8 @@ function Footer() {
     <nav data-testid="footer" className="main-footer">
       <button
         type="button"
-        onClick={ () => changePage('foods') }
-        className={ `footer-button ${pathname === '/foods' && 'selected'}` }
+        onClick={ () => changePage('meals') }
+        className={ `footer-button ${pathname === '/meals' && 'selected'}` }
       >
         <img src={ mealIcon } alt={ mealIcon } data-testid="food-bottom-btn" />
       </button>
