@@ -1,4 +1,5 @@
 import React from 'react';
+import RecipesProvider from './Context/recipesProvider';
 import './App.css';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Login from './pages/Login';
