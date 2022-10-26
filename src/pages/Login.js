@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { useHistory } from 'react-router-dom';
 
 function Login() {
   const [email, setEmail] = useState('');
