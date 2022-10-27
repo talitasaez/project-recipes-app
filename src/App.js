@@ -1,10 +1,9 @@
 import React from 'react';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import RecipesProvider from './Context/recipesProvider';
 import './App.css';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Login from './pages/Login';
 import Recipes from './pages/Recipes';
-import RecipesProvider from './Context/recipesProvider';
 
 function App() {
   return (
