@@ -15,7 +15,7 @@ describe('Footer', () => {
     userEvent.type(passInput, 'senhagrande');
     expect(loginBtn).toHaveProperty('disabled', false);
     userEvent.click(loginBtn);
-    const footerFoods = screen.getByTestId('food-bottom-btn');
+    const footerFoods = screen.getByTestId('meals-bottom-btn');
     userEvent.click(footerFoods);
   });
   it('Testa se há o redirecionamento para a lista de bebidas ao clicar no ícone de bebidas', () => {
