@@ -20,7 +20,7 @@ function Footer() {
         onClick={ () => changePage('meals') }
         className={ `footer-button ${pathname === '/meals' && 'selected'}` }
       >
-        <img src={ mealIcon } alt={ mealIcon } data-testid="food-bottom-btn" />
+        <img src={ mealIcon } alt={ mealIcon } data-testid="meals-bottom-btn" />
       </button>
       <button
         type="button"
