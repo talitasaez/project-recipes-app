@@ -7,7 +7,7 @@ import renderWithRouter from '../helpers/renderWithRouter';
 describe('Footer', () => {
   it('Testa se há o redirecionamento para a lista de comidas ao clicar no ícone de comidas', () => {
     renderWithRouter(<App />);
-    const emailInput = screen.getByRole('textbox');
+    const emailInput = screen.getByRole('email');
     const passInput = screen.getByPlaceholderText(/insira sua senha\.\.\./i);
     const loginBtn = screen.getByRole('button', { name: /enter/i });
     expect(loginBtn).toHaveProperty('disabled', true);
@@ -20,7 +20,7 @@ describe('Footer', () => {
   });
   it('Testa se há o redirecionamento para a lista de bebidas ao clicar no ícone de bebidas', () => {
     renderWithRouter(<App />);
-    const emailInput = screen.getByRole('textbox');
+    const emailInput = screen.getByRole('password');
     const passInput = screen.getByPlaceholderText(/insira sua senha\.\.\./i);
     const loginBtn = screen.getByRole('button', { name: /enter/i });
     expect(loginBtn).toHaveProperty('disabled', true);
