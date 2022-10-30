@@ -1,0 +1,8 @@
+.main-footer {
+  background-color: white;
+  bottom: 0;
+  display: flex;
+  justify-content: space-around;
+  position: fixed;
+  width: 360px;
+}
