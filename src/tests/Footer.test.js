@@ -17,7 +17,9 @@ describe('Footer', () => {
   it('Testa se está sendo renderizado nas telas', () => {
     const { history } = renderWithRouter(<Recipes />);
     const mealsIcon = screen.getByTestId('meals-bottom-btn');
-    const drinkIcon = screen.getByTestId('drinks-bottom-btn');
+    const drinkIcon = screen.getByRole('button', {
+      name: /\/static\/media\/drinkicon\.efc0d3c156e5da73e44a826c8d67b142\.svg/i,
+    });
     const drinkImage = screen.getByRole('img', {
       name: /\/static\/media\/drinkicon\.efc0d3c156e5da73e44a826c8d67b142\.svg/i,
     });
