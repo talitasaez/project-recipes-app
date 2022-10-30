@@ -3,6 +3,7 @@ import { screen, waitForElementToBeRemoved } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import renderWithRouter from '../helpers/renderWithRouter';
 import App from '../App';
+import Recipes from '../pages/Recipes';
 
 const searchTopBtn = 'search-top-btn';
 const searchInputLiteral = 'search-input';
@@ -41,7 +42,7 @@ describe('testing the Search Bar component', () => {
     expect(window.alert).toBeCalledWith('Sorry, we haven\'t found any recipes for these filters.');
   });
   it('should test the alert if recipes have length 12', async () => {
-    const { history } = renderWithRouter(<App />);
+    const { history } = renderWithRouter(<Recipes />);
     history.push('/foods');
     const expectedCard = await screen.findByTestId('11-recipe-card');
     const searchBtn = screen.getByTestId(searchTopBtn);
@@ -52,6 +53,13 @@ describe('testing the Search Bar component', () => {
     const execSearch = screen.getByTestId(execSearchBtn);
     userEvent.type(searchInput, 'a');
     userEvent.click(execSearch);
+    const inputFirstLetter = screen.getByText(/first letter/i);
+    expect(inputFirstLetter).toBeInTheDocument();
+    userEvent.click(inputFirstLetter);
+    const mealsFirtsLetter = screen.getByRole('img', {
+      name: /lamb tomato and sweet spices/i,
+    });
+    expect(mealsFirtsLetter).toBeInTheDocument();
     const unexpectedCard = screen.queryByTestId('12-recipe-card');
     expect(expectedCard).toBeInTheDocument();
     expect(unexpectedCard).toBeNull();
