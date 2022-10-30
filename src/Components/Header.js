@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import Context from '../Context/recipesContext';
+import SearchBar from './SearchBar';
 
 export default function Header({ title, icons }) {
   console.log(title);
@@ -47,6 +48,7 @@ export default function Header({ title, icons }) {
           placeholder="Procurar por..."
         />
       }
+      <SearchBar />
     </header>
   );
 }
