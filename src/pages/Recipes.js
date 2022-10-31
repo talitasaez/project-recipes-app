@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import Header from '../Components/Header';
 import Footer from '../Components/Footer';
+import SearchBar from '../Components/SearchBar';
 import RecipeCard from '../Components/RecipeCard';
 import RecipesContext from '../Context/recipesContext';
 import getRecipes from '../helpers/getRecipes';
@@ -11,6 +12,7 @@ import './Recipes.css';
 function Recipes() {
   const { displayRecipes, setDisplayRecipes } = useContext(RecipesContext);
   const [categoryList, setCategoryList] = useState([]);
+  const [toggleCategory, setToggleCategory] = useState(false);
   const history = useHistory();
   const path = history.location.pathname;
 
@@ -23,25 +25,38 @@ function Recipes() {
 
       const categorys = await getRecipes('category', '', path);
       const maxLengthCategorys = 5;
-      if (categorys) setCategoryList(recipes.slice(0, maxLengthCategorys));
+      if (categorys) setCategoryList(categorys.slice(0, maxLengthCategorys));
       else setCategoryList([]);
     }
     fetchData();
   }, [path, setDisplayRecipes]);
 
-  const handleCategoryChanger = async (categoryName) => {
-    const recipes = await getRecipes('byCategory', categoryName, path);
+  const handleAllCategorys = async () => {
+    const recipes = await getRecipes('name', '', path);
     const maxLength = 12;
     if (recipes) setDisplayRecipes(recipes.slice(0, maxLength));
     else setDisplayRecipes([]);
   };
 
-  const titleToHeader = path === '/meals' ? 'Meals' : 'Drinks';
+  const handleCategoryChanger = async (categoryName) => {
+    if (toggleCategory === false) {
+      const recipes = await getRecipes('byCategory', categoryName, path);
+      const maxLength = 12;
+      if (recipes) setDisplayRecipes(recipes.slice(0, maxLength));
+      else setDisplayRecipes([]);
+    } else {
+      handleAllCategorys();
+    }
 
+    setToggleCategory(!toggleCategory);
+  };
+
+  const titleToHeader = path === '/meals' ? 'Meals' : 'Drinks';
   return (
     <main>
       <Header title={ titleToHeader } />
       <div className="recipes-container">
+        {/* <SearchBar /> */}
         <div className="category-list-container">
           { categoryList.map((category, index) => {
             const categoryName = category.strCategory;
@@ -59,7 +74,7 @@ function Recipes() {
           <button
             type="button"
             data-testid="All-category-filter"
-            onClick={ () => { } }
+            onClick={ handleAllCategorys }
           >
             All
           </button>
@@ -69,7 +84,6 @@ function Recipes() {
             <RecipeCard
               key={ index }
               recipe={ recipe }
-              data-testid={ `${index}-recipe-card` }
               index={ index }
             />
           )) }

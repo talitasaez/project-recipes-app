@@ -11,6 +11,10 @@ const createEndPointForFoods = (type, value) => {
   if (type === 'byCategory') {
     return (`https://www.themealdb.com/api/json/v1/1/filter.php?c=${value}`);
   }
+
+  if (type === 'details') {
+    return (`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${value}`);
+  }
   return (`https://www.themealdb.com/api/json/v1/1/search.php?f=${value}`);
 };
 
@@ -22,26 +26,28 @@ const createEndPointForDrinks = (type, value) => {
     return (`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${value}`);
   }
   if (type === 'category') {
-    return ('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+    return ('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list');
   }
   if (type === 'byCategory') {
-    return (`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Cocktail${value}`);
+    return (`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${value}`);
+  }
+  if (type === 'details') {
+    return (`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${value}`);
   }
   return (`https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${value}`);
 };
 
 const getRecipes = async (type, value, path) => {
-  console.log('type:', type, 'path:', path, 'value', value);
   try {
-    const endpoint = path === '/meals'
+    const endpoint = path.includes('/meals')
       ? createEndPointForFoods(type, value)
       : createEndPointForDrinks(type, value);
     console.log(endpoint);
     const request = await fetch(endpoint);
     const response = await request.json();
-    return path === '/meals' ? response.meals : response.drinks;
+    return path.includes('/meals') ? response.meals : response.drinks;
   } catch (e) {
-    return null;
+    return Error;
   }
 };
 
