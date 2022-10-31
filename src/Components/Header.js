@@ -4,7 +4,6 @@ import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import Context from '../Context/recipesContext';
-import SearchBar from './SearchBar';
 
 export default function Header({ title, icons }) {
   const [enableSearch, setEnableSearch] = useState(false);
