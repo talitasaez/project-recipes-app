@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useHistory, Link } from 'react-router-dom';
 import getRecipes from '../helpers/getRecipes';
 import RecipeDetailCard from '../Components/RecipeDetailCard';
 
@@ -23,9 +23,21 @@ function RecipeDetails() {
     fetchData();
   }, [deleteIdFromPath, id, path]);
 
+  const { idMeal, idDrink } = details;
+
   return (
     <div>
       <RecipeDetailCard recipe={ details } srcVideo={ srcVideo } />
+      <Link
+        to={
+          path.includes('/meals')
+            ? `/meals/${idMeal}/in-progress` : `/drinks/${idDrink}/in-progress`
+        }
+      >
+        <button type="button" data-testid="start-recipe-btn">
+          Start Recipe
+        </button>
+      </Link>
     </div>
   );
 }

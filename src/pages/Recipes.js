@@ -56,7 +56,7 @@ function Recipes() {
     <main>
       <Header title={ titleToHeader } />
       <div className="recipes-container">
-        {/* <SearchBar /> */}
+        <SearchBar />
         <div className="category-list-container">
           { categoryList.map((category, index) => {
             const categoryName = category.strCategory;

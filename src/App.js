@@ -18,6 +18,8 @@ function App() {
             <Route exact path="/drinks" component={ Recipes } />
             <Route path="/meals/:id" component={ RecipeDetails } />
             <Route path="/drinks/:id" component={ RecipeDetails } />
+            <Route path="/meals/:id-da-receita/in-progress" />
+            <Route path="/drinks/:id-da-receita/in-progress" />
           </Switch>
         </BrowserRouter>
       </RecipesProvider>
