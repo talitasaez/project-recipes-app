@@ -7,7 +7,6 @@ import Context from '../Context/recipesContext';
 import SearchBar from './SearchBar';
 
 export default function Header({ title, icons }) {
-  console.log(title);
   const [enableSearch, setEnableSearch] = useState(false);
   const history = useHistory();
   const { searchValue, setSearchValue } = useContext(Context);

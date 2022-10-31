@@ -1,10 +1,10 @@
 import React from 'react';
+import { useHistory, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 function RecipeCard(props) {
   const { recipe, index } = props;
-  const { strMealThumb, strMeal, strDrink, strDrinkThumb } = recipe;
+  const { strMealThumb, strMeal, strDrink, strDrinkThumb, idMeal, idDrink } = recipe;
   let nameRecipe = 'meal';
   let imgSrc = strMealThumb;
   const history = useHistory();
@@ -19,12 +19,14 @@ function RecipeCard(props) {
   }
 
   return (
-    <div className="card-container">
-      <h3 data-testid={ `${index}-card-img` }>
-        {nameRecipe}
-      </h3>
-      <img src={ imgSrc } alt={ nameRecipe } />
-    </div>
+    <Link to={ path === '/meals' ? `/meals/${idMeal}` : `/drinks/${idDrink}` }>
+      <div className="card-container" data-testid={ `${index}-recipe-card` }>
+        <h3 data-testid={ `${index}-card-name` }>
+          {nameRecipe}
+        </h3>
+        <img src={ imgSrc } alt={ nameRecipe } data-testid={ `${index}-card-img` } />
+      </div>
+    </Link>
   );
 }
 

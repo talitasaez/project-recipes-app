@@ -1,12 +1,14 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import RecipesProvider from './Context/recipesProvider';
-import './App.css';
 import Login from './pages/Login';
+import RecipeDetails from './pages/RecipeDetails';
 import Recipes from './pages/Recipes';
 import Profile from './pages/Profile';
 import DoneRecipes from './pages/DoneRecipes';
 import FavoriteRecipes from './pages/FavoriteRecipes';
+
+import './App.css';
 
 function App() {
   return (
@@ -15,11 +17,15 @@ function App() {
         <BrowserRouter>
           <Switch>
             <Route exact path="/" component={ Login } />
-            <Route path="/meals" component={ Recipes } />
-            <Route path="/drinks" component={ Recipes } />
-            <Route path="/profile" component={ Profile } />
+            <Route exact path="/meals" component={ Recipes } />
+            <Route exact path="/drinks" component={ Recipes } />
+            <Route exact path="/meals/:id" component={ RecipeDetails } />
+            <Route exact path="/drinks/:id" component={ RecipeDetails } />
+            <Route exact path="/meals/:id-da-receita/in-progress" />
+            <Route exact path="/drinks/:id-da-receita/in-progress" />
             <Route path="/done-recipes" component={ DoneRecipes } />
             <Route path="/favorite-recipes" component={ FavoriteRecipes } />
+            <Route path="/profile" component={ Profile } />
           </Switch>
         </BrowserRouter>
       </RecipesProvider>
