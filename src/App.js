@@ -1,11 +1,14 @@
 import React from 'react';
-import './App.css';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import RecipesProvider from './Context/recipesProvider';
-
 import Login from './pages/Login';
-import Recipes from './pages/Recipes';
 import RecipeDetails from './pages/RecipeDetails';
+import Recipes from './pages/Recipes';
+import Profile from './pages/Profile';
+import DoneRecipes from './pages/DoneRecipes';
+import FavoriteRecipes from './pages/FavoriteRecipes';
+
+import './App.css';
 
 function App() {
   return (
@@ -20,6 +23,8 @@ function App() {
             <Route path="/drinks/:id" component={ RecipeDetails } />
             <Route path="/meals/:id-da-receita/in-progress" />
             <Route path="/drinks/:id-da-receita/in-progress" />
+            <Route path="/done-recipes" component={ DoneRecipes } />
+            <Route path="/favorite-recipes" component={ FavoriteRecipes } />
           </Switch>
         </BrowserRouter>
       </RecipesProvider>

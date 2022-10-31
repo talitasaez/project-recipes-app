@@ -42,7 +42,7 @@ export default function SearchBar() {
 
   return (
     <form>
-      <div className="header-raidos">
+      <div className="header-radios">
         <label htmlFor="ingredient">
           <input
             data-testid="ingredient-search-radio"
