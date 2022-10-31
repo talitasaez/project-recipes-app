@@ -47,7 +47,6 @@ export default function Header({ title, icons }) {
           placeholder="Procurar por..."
         />
       }
-      <SearchBar />
     </header>
   );
 }
