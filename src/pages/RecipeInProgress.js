@@ -1,33 +1,71 @@
-import React, { useEffect } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
-import getRecipes from '../helpers/getRecipes';
-import RecipeDetailCard from '../Components/RecipeDetailCard';
+import React, { useEffect, useState } from 'react';
+// import { useParams, useHistory } from 'react-router-dom';
+import RecipeInfo from '../Components/RecipeInfo';
+// import getRecipes from '../helpers/getRecipes';
+// import PropTypes from 'prop-types';
+// import RecipeDetailCard from '../Components/RecipeDetailCard';
 
-function RecipeInProgress() {
-  const { id } = useParams();
+function RecipeInProgress({ match }) {
   const [details, setDetails] = useState({});
-  // const [srcVideo, setSrcVideo] = useState('');
-  const history = useHistory();
-  const path = history.location.pathname;
-  const SIX = 6;
-  const deleteIdFromPath = path.substring(0, SIX);
+  const { path } = match;
+  const pathName = path.slice(0, 6);
+
+  const DB = pathName === '/meals' ? 'meal' : 'cocktail';
 
   useEffect(() => {
     async function fetchData() {
-      const detailsToRender = await getRecipes('details', id, deleteIdFromPath);
-      setDetails(detailsToRender[0]);
-      if (path.includes('/meals')) {
-        setSrcVideo(detailsToRender[0]);
-      }
+      const detailsToRender = await fetch(`https://www.the${DB}db.com/api/json/v1/1/lookup.php?i=${value}`);
+      const data = await detailsToRender.json();
+      console.log(data);
+      // setDetails(detailsToRender[0]);
     }
     fetchData();
-  }, [deleteIdFromPath, id, path]);
+  }, [DB]);
 
-  const { idMeal, idDrink } = details;
   return (
 
-  
-  
-)
+    <div>
+
+      <h3> Ingredientes </h3>
+      <div>
+        <RecipeInfo recipeData={ details } />
+
+      </div>
+      <div />
+
+      <h2 data-testid="recipe-title"> Título </h2>
+
+      <button
+        type="button"
+        data-testid="share-btn"
+      >
+        Compartilhar
+      </button>
+
+      <button
+        type="button"
+        data-testid="favorite-btn"
+      >
+        Favoritar
+      </button>
+
+      <h3 data-testid="recipe-category">
+        Texto Categoria
+      </h3>
+
+      <p data-testid="instructions">Instruções</p>
+
+      <button
+        type="button"
+        data-testid="finish-recipe-btn"
+
+      >
+        Finalizar
+      </button>
+
+    </div>
+  );
+}
+
 
 export default RecipeInProgress;
