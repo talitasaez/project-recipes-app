@@ -4,7 +4,6 @@ import { mapItensMeals, mapItensDrinks } from '../helpers/mapItemsDone';
 
 function DoneRecipes() {
   const [filter, setFilter] = useState();
-  const [showCopy, setShowCopy] = useState(false);
   const findNone = 'Nenhuma Receita Concluida!';
 
   const doneItensLocal = JSON.parse(localStorage.getItem('doneRecipes'));
@@ -63,7 +62,6 @@ function DoneRecipes() {
   return (
     <div className="done-recipes-container">
       <Header title="Done Recipes" icons={ { profile: true, search: false } } />
-      {/* Filters */}
       <div className="done-recipes-buttons">
         <button
           type="button"
@@ -91,10 +89,6 @@ function DoneRecipes() {
         </button>
       </div>
       {showItens(filter)}
-
-      {
-        showCopy ? <h4>Link copied!</h4> : null
-      }
     </div>
   );
 }
