@@ -1,14 +1,13 @@
 import PropTypes from 'prop-types';
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import Context from '../Context/recipesContext';
 
 export default function Header({ title, icons }) {
-  const [enableSearch, setEnableSearch] = useState(false);
   const history = useHistory();
-  const { searchValue, setSearchValue } = useContext(Context);
+  const { setEnableSearch } = useContext(Context);
 
   const createProfileIcon = () => (
     <button type="button" onClick={ () => history.push('/profile') }>
@@ -16,7 +15,11 @@ export default function Header({ title, icons }) {
     </button>
   );
   const createSearchIcon = () => (
-    <button type="button" onClick={ () => setEnableSearch((prev) => !prev) }>
+    <button
+      type="button"
+      data-testid="lupa"
+      onClick={ () => setEnableSearch((prev) => !prev) }
+    >
       <img
         data-testid="search-top-btn"
         src={ searchIcon }
@@ -35,17 +38,6 @@ export default function Header({ title, icons }) {
           icons.search && createSearchIcon()
         }
       </div>
-      {
-        enableSearch
-        && <input
-          data-testid="search-input"
-          type="text"
-          onChange={ (e) => setSearchValue(e.target.value) }
-          value={ searchValue }
-          className="header-search-bar"
-          placeholder="Procurar por..."
-        />
-      }
     </header>
   );
 }

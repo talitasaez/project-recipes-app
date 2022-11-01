@@ -15,17 +15,17 @@ function Recipes() {
   const [toggleCategory, setToggleCategory] = useState(false);
   const history = useHistory();
   const path = history.location.pathname;
+  const numberCategory = 5;
+  const numberRecipes = 12;
 
   useEffect(() => {
     async function fetchData() {
       const recipes = await getRecipes('name', '', path);
-      const maxLength = 12;
-      if (recipes) setDisplayRecipes(recipes.slice(0, maxLength));
+      if (recipes) setDisplayRecipes(recipes);
       else setDisplayRecipes([]);
 
       const categorys = await getRecipes('category', '', path);
-      const maxLengthCategorys = 5;
-      if (categorys) setCategoryList(categorys.slice(0, maxLengthCategorys));
+      if (categorys) setCategoryList(categorys);
       else setCategoryList([]);
     }
     fetchData();
@@ -33,16 +33,14 @@ function Recipes() {
 
   const handleAllCategorys = async () => {
     const recipes = await getRecipes('name', '', path);
-    const maxLength = 12;
-    if (recipes) setDisplayRecipes(recipes.slice(0, maxLength));
+    if (recipes) setDisplayRecipes(recipes);
     else setDisplayRecipes([]);
   };
 
   const handleCategoryChanger = async (categoryName) => {
     if (toggleCategory === false) {
       const recipes = await getRecipes('byCategory', categoryName, path);
-      const maxLength = 12;
-      if (recipes) setDisplayRecipes(recipes.slice(0, maxLength));
+      if (recipes) setDisplayRecipes(recipes);
       else setDisplayRecipes([]);
     } else {
       handleAllCategorys();
@@ -58,19 +56,20 @@ function Recipes() {
       <div className="recipes-container">
         <SearchBar />
         <div className="category-list-container">
-          { categoryList.map((category, index) => {
-            const categoryName = category.strCategory;
-            return (
-              <button
-                key={ index }
-                data-testid={ `${categoryName}-category-filter` }
-                type="button"
-                onClick={ () => { handleCategoryChanger(categoryName); } }
-              >
-                {categoryName}
-              </button>
-            );
-          }) }
+          { categoryList.filter((_, index) => index < numberCategory)
+            .map((category, index) => {
+              const categoryName = category.strCategory;
+              return (
+                <button
+                  key={ index }
+                  data-testid={ `${categoryName}-category-filter` }
+                  type="button"
+                  onClick={ () => { handleCategoryChanger(categoryName); } }
+                >
+                  {categoryName}
+                </button>
+              );
+            }) }
           <button
             type="button"
             data-testid="All-category-filter"
@@ -80,13 +79,14 @@ function Recipes() {
           </button>
         </div>
         <section>
-          { displayRecipes.map((recipe, index) => (
-            <RecipeCard
-              key={ index }
-              recipe={ recipe }
-              index={ index }
-            />
-          )) }
+          { displayRecipes.filter((_, index) => index < numberRecipes)
+            .map((recipe, index) => (
+              <RecipeCard
+                key={ index }
+                recipe={ recipe }
+                index={ index }
+              />
+            )) }
         </section>
       </div>
       <Footer />
