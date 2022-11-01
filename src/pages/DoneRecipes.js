@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Header from '../Components/Header';
-import { mapItensFood, mapItensDrinks } from '../helpers/mapItemsDone';
+import { mapItensMeals, mapItensDrinks } from '../helpers/mapItemsDone';
 
 function DoneRecipes() {
   const [filter, setFilter] = useState();
@@ -12,7 +12,7 @@ function DoneRecipes() {
   const filterButtons = ({ target }) => {
     const { name } = target;
     if (name === 'all') setFilter();
-    if (name === 'food') setFilter('food');
+    if (name === 'meals') setFilter('meals');
     if (name === 'drinks') setFilter('drinks');
   };
 
@@ -23,23 +23,23 @@ function DoneRecipes() {
           {
             doneItensLocal
               .map((element, index) => (
-                element.type === 'food' ? (
-                  mapItensFood(element, index, setShowCopy)
+                element.type === 'meals' ? (
+                  mapItensMeals(element, index, setShowCopy)
                 ) : mapItensDrinks(element, index, setShowCopy)))
           }
         </div>
       ) : <h4>{ findNone }</h4>;
     }
-    if (infoFiltro === 'food') {
+    if (infoFiltro === 'meals') {
       return doneItensLocal !== null ? (
         <div>
           {
             doneItensLocal
               .filter(
-                (element) => (element.type === 'food'),
+                (element) => (element.type === 'meals'),
               )
               .map((element, index) => (
-                mapItensFood(element, index, setShowCopy)
+                mapItensMeals(element, index, setShowCopy)
               ))
           }
         </div>
