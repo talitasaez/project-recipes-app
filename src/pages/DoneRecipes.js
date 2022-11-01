@@ -76,7 +76,7 @@ function DoneRecipes() {
         <button
           type="button"
           name="meals"
-          data-testid="filter-by-meals-btn"
+          data-testid="filter-by-meal-btn"
           onClick={ filterButtons }
         >
           Meals
