@@ -1,40 +1,34 @@
 import React, { useEffect, useState } from 'react';
-// import { useParams, useHistory } from 'react-router-dom';
-import RecipeInfo from '../Components/RecipeInfo';
-// import getRecipes from '../helpers/getRecipes';
+import { useParams, useHistory } from 'react-router-dom';
+// import RecipeInfo from '../Components/RecipeInfo';
+import getRecipes from '../helpers/getRecipes';
 // import PropTypes from 'prop-types';
-// import RecipeDetailCard from '../Components/RecipeDetailCard';
+import RecipeDetailCard from '../Components/RecipeDetailCard';
 
-function RecipeInProgress({ match }) {
+function RecipeInProgress() {
+  const { id } = useParams();
   const [details, setDetails] = useState({});
-  const { path } = match;
-  const pathName = path.slice(0, 6);
-
-  const DB = pathName === '/meals' ? 'meal' : 'cocktail';
+  const [srcVideo, setSrcVideo] = useState('');
+  const history = useHistory();
+  const path = history.location.pathname;
+  const SIX = 6;
+  const deleteIdFromPath = path.substring(0, SIX);
 
   useEffect(() => {
     async function fetchData() {
-      const detailsToRender = await fetch(`https://www.the${DB}db.com/api/json/v1/1/lookup.php?i=${value}`);
-      const data = await detailsToRender.json();
-      console.log(data);
-      // setDetails(detailsToRender[0]);
+      const detailsToRender = await getRecipes('details', id, deleteIdFromPath);
+      setDetails(detailsToRender[0]);
+      if (path.includes('/meals')) {
+        setSrcVideo(detailsToRender[0].strYoutube);
+      }
     }
     fetchData();
-  }, [DB]);
-
+  }, [deleteIdFromPath, id, path]);
+  console.log(details);
   return (
 
     <div>
-
-      <h3> Ingredientes </h3>
-      <div>
-        <RecipeInfo recipeData={ details } />
-
-      </div>
-      <div />
-
-      <h2 data-testid="recipe-title"> Título </h2>
-
+      <RecipeDetailCard recipe={ details } srcVideo={ srcVideo } />
       <button
         type="button"
         data-testid="share-btn"
@@ -48,17 +42,9 @@ function RecipeInProgress({ match }) {
       >
         Favoritar
       </button>
-
-      <h3 data-testid="recipe-category">
-        Texto Categoria
-      </h3>
-
-      <p data-testid="instructions">Instruções</p>
-
       <button
         type="button"
         data-testid="finish-recipe-btn"
-
       >
         Finalizar
       </button>
@@ -66,6 +52,5 @@ function RecipeInProgress({ match }) {
     </div>
   );
 }
-
 
 export default RecipeInProgress;
