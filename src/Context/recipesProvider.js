@@ -5,11 +5,14 @@ import RecipesContext from './recipesContext';
 function RecipesProvider({ children }) {
   const [searchValue, setSearchValue] = useState('');
   const [displayRecipes, setDisplayRecipes] = useState([]);
+  const [enableSearch, setEnableSearch] = useState(false);
 
   const contextValue = useMemo(() => ({ searchValue,
     setSearchValue,
     displayRecipes,
-    setDisplayRecipes }), [searchValue, displayRecipes]);
+    setDisplayRecipes,
+    enableSearch,
+    setEnableSearch }), [searchValue, displayRecipes, enableSearch]);
 
   return (
     <RecipesContext.Provider value={ contextValue }>
