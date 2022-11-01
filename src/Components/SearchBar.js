@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { useHistory } from 'react-router-dom';
 import RecipesContext from '../Context/recipesContext';
 import getRecipes from '../helpers/getRecipes';
 
 export default function SearchBar() {
-  const { mainLoading, displayRecipes,
+  const { displayRecipes,
     setDisplayRecipes, searchValue,
     enableSearch, setSearchValue } = useContext(RecipesContext);
   const [type, setType] = useState('');
@@ -38,10 +38,10 @@ export default function SearchBar() {
     };
     if (displayRecipes.length === 1 && (searchValue && type)) {
       redirectTo(pathname);
-    } else if (displayRecipes.meals === null && !mainLoading) {
+    } else if (displayRecipes.meals === null) {
       createAlertNoRecipes();
     }
-  }, [displayRecipes, mainLoading, pathname, history, searchValue, type]);
+  }, [displayRecipes, pathname, history, searchValue, type]);
 
   return (
     <div>
