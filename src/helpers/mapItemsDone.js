@@ -9,11 +9,11 @@ const transform = (tags) => {
   return arrTags;
 };
 
-export const mapItensFood = (element, index, setShowCopy) => (
+export const mapItensMeals = (element, index, setShowCopy) => (
   <div className="done-recipes-container" key={ element.id }>
     <div className="done-recipes-card">
       <div className="image-card">
-        <Link to={ `foods/${element.id}` }>
+        <Link to={ `meals/${element.id}` }>
           <img
             src={ element.image }
             alt=""
@@ -24,7 +24,7 @@ export const mapItensFood = (element, index, setShowCopy) => (
       </div>
 
       <div className="content-card">
-        <Link to={ `foods/${element.id}` }>
+        <Link to={ `meals/${element.id}` }>
           <h2
             data-testid={ `${index}-horizontal-name` }
           >
@@ -61,7 +61,7 @@ export const mapItensFood = (element, index, setShowCopy) => (
         <button
           type="button"
           onClick={ () => {
-            copy(`http://localhost:3000/foods/${element.id}`);
+            copy(`http://localhost:3000/meals/${element.id}`);
             setShowCopy(true);
           } }
           className="copy-button"
