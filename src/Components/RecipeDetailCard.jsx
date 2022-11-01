@@ -1,11 +1,15 @@
-import React from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useParams, useHistory } from 'react-router-dom';
+import copy from 'clipboard-copy';
 import PropTypes from 'prop-types';
 
 function RecipeDetailCard(props) {
+  const { id } = useParams();
   const history = useHistory();
   const path = history.location.pathname;
   const { recipe, srcVideo } = props;
+
+  const [shareAlert, setShareAlert] = useState(false);
 
   const {
     strMeal,
@@ -20,6 +24,7 @@ function RecipeDetailCard(props) {
   let nameRecipe = '';
   let imgSrc = '';
   let recipeCategory = '';
+  let mealOrDrink = '';
 
   const ingredients = Object.fromEntries(
     Object.entries(recipe).filter(
@@ -37,10 +42,12 @@ function RecipeDetailCard(props) {
     nameRecipe = strMeal;
     imgSrc = strMealThumb;
     recipeCategory = strCategory;
+    mealOrDrink = 'meals';
   } else {
     nameRecipe = strDrink;
     imgSrc = strDrinkThumb;
     recipeCategory = strAlcoholic;
+    mealOrDrink = 'drinks';
   }
 
   return (
@@ -79,6 +86,17 @@ function RecipeDetailCard(props) {
           autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         />
       }
+      <button
+        type="button"
+        data-testid="share-btn"
+        onClick={ () => {
+          copy(`http://localhost:3000/${mealOrDrink}/${id}`);
+          setShareAlert(true);
+        } }
+      >
+        Compartilhar
+      </button>
+      { shareAlert && <p>Link copied!</p> }
     </div>
   );
 }
