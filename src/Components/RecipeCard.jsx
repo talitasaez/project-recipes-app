@@ -10,7 +10,7 @@ function RecipeCard(props) {
   const history = useHistory();
   const path = history.location.pathname;
 
-  if (path === '/meals') {
+  if (path.includes('/meals')) {
     nameRecipe = strMeal;
     imgSrc = strMealThumb;
   } else {
