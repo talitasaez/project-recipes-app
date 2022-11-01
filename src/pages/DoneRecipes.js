@@ -1,8 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from '../Components/Header';
+import { mapItensFood, mapItensDrinks } from '../helpers/mapItemsDone';
 
 function DoneRecipes() {
+  const [filter, setFilter] = useState();
+  const [showCopy, setShowCopy] = useState(false);
+  const findNone = 'Nenhuma Receita Concluida!';
+
   const doneItensLocal = JSON.parse(localStorage.getItem('doneRecipes'));
+
+  const filterButtons = ({ target }) => {
+    const { name } = target;
+    if (name === 'all') setFilter();
+    if (name === 'food') setFilter('food');
+    if (name === 'drinks') setFilter('drinks');
+  };
 
   const showItens = (infoFiltro) => {
     if (infoFiltro === undefined) {
@@ -49,8 +61,9 @@ function DoneRecipes() {
   };
 
   return (
-    <>
+    <div className="done-recipes-container">
       <Header title="Done Recipes" icons={ { profile: true, search: false } } />
+      {/* Filters */}
       <div className="done-recipes-buttons">
         <button
           type="button"
@@ -63,10 +76,10 @@ function DoneRecipes() {
         <button
           type="button"
           name="food"
-          data-testid="filter-by-meals-btn"
+          data-testid="filter-by-food-btn"
           onClick={ filterButtons }
         >
-          Meals
+          Food
         </button>
         <button
           type="button"
@@ -77,10 +90,12 @@ function DoneRecipes() {
           Drinks
         </button>
       </div>
-
       {showItens(filter)}
 
-    </>
+      {
+        showCopy ? <h4>Link copied!</h4> : null
+      }
+    </div>
   );
 }
 
