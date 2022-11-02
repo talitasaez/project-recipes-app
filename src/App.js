@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import RecipesProvider from './Context/recipesProvider';
 import Login from './pages/Login';
 import RecipeDetails from './pages/RecipeDetails';
@@ -15,7 +15,6 @@ function App() {
   return (
     <div className="container">
       <RecipesProvider>
-        <BrowserRouter>
           <Switch>
             <Route exact path="/" component={ Login } />
             <Route exact path="/meals" component={ Recipes } />
@@ -36,7 +35,6 @@ function App() {
             <Route path="/favorite-recipes" component={ FavoriteRecipes } />
             <Route path="/profile" component={ Profile } />
           </Switch>
-        </BrowserRouter>
       </RecipesProvider>
     </div>
   );

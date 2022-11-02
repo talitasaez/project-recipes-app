@@ -42,7 +42,6 @@ const getRecipes = async (type, value, path) => {
     const endpoint = path.includes('/meals')
       ? createEndPointForFoods(type, value)
       : createEndPointForDrinks(type, value);
-    console.log(endpoint);
     const request = await fetch(endpoint);
     const response = await request.json();
     return path.includes('/meals') ? response.meals : response.drinks;
