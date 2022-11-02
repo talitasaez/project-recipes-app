@@ -29,12 +29,6 @@ function RecipeInProgress() {
 
     <div>
       <RecipeInProgressCard recipe={ details } srcVideo={ srcVideo } />
-      <button
-        type="button"
-        data-testid="share-btn"
-      >
-        Compartilhar
-      </button>
 
       <button
         type="button"
