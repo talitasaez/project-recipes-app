@@ -29,12 +29,12 @@ function RecipeInProgressCard(props) {
   useEffect(() => {
     const ingredients = Object.fromEntries(
       Object.entries(recipe).filter(
-        ([key, value]) => key.includes('Ingredient') && value !== '',
+        ([key, value]) => key.includes('Ingredient') && value !== '' && value !== null,
       ),
     );
     const measures = Object.fromEntries(
       Object.entries(recipe).filter(
-        ([key, value]) => key.includes('Measure') && value !== ' ',
+        ([key, value]) => key.includes('Measure') && value !== '' && value !== null,
       ),
     );
     let lista = [];
@@ -66,11 +66,23 @@ function RecipeInProgressCard(props) {
       <img data-testid="recipe-photo" src={ imgSrc } alt={ nameRecipe } />
       <h3> Ingredientes </h3>
       <div>
-        {listaIngredientes.map((ingredient, index) => (
-          <div data-testid={ `${index}-ingredient-name-and-measure` } key={ index }>
-            {ingredient}
-          </div>
-        ))}
+        {listaIngredientes.map((ingredient, index) => {
+          console.log(ingredient);
+          return (
+            <div data-testid={ `${index}-ingredient-step` } key={ index }>
+              <label
+                htmlFor={ ingredient }
+              >
+                {ingredient}
+                <input
+                  data-testid={ `${index}-ingredient-name-and-measure` }
+                  type="checkbox"
+                  id={ ingredient }
+                />
+              </label>
+            </div>
+          );
+        })}
 
       </div>
       <p data-testid="instructions">
