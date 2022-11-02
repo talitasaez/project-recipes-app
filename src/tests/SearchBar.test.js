@@ -32,22 +32,24 @@ describe('testing the Search Bar component', () => {
   });
 
   it('should test if have no recipes', async () => {
+    jest.spyOn(global, 'alert');
     const { history } = renderWithRouter(<App />);
     act(() => {
       history.push('/meals');
     });
     await waitFor(() => {
-      jest.spyOn(global, 'alert');
-      // screen.findByTestId('0-recipe-card');
-      const searchBtn = screen.getByTestId(lupa);
-      userEvent.click(searchBtn);
-      const searchInput = screen.getByTestId(inputText);
-      const nameSearchRadio = screen.getByTestId(searchRadioSelector);
-      userEvent.click(nameSearchRadio);
-      const execSearch = screen.getByTestId(btnSearch);
-      userEvent.type(searchInput, 'no recipes was finded');
-      userEvent.click(execSearch);
-      // waitForElementToBeRemoved(() => screen.getByTestId('0-recipe-card'));
+      screen.findByTestId('0-recipe-card');
+    });
+    const searchBtn = screen.getByTestId(lupa);
+    userEvent.click(searchBtn);
+    const searchInput = screen.getByTestId(inputText);
+    const nameSearchRadio = screen.getByTestId(searchRadioSelector);
+    userEvent.click(nameSearchRadio);
+    const execSearch = screen.getByTestId(btnSearch);
+    userEvent.type(searchInput, 'xablau');
+    userEvent.click(execSearch);
+    await waitFor(() => {
+      waitForElementToBeRemoved(() => screen.getByTestId('0-recipe-card'));
       expect(global.alert).toHaveBeenCalled();
     });
   });
@@ -56,26 +58,20 @@ describe('testing the Search Bar component', () => {
     const { history } = renderWithRouter(<Recipes />);
     history.push('/meals');
     await waitFor(() => {
-      const expectedCard = screen.findByTestId('11-recipe-card');
       const searchBtn = screen.getByTestId(lupa);
       userEvent.click(searchBtn);
-      const searchInput = screen.getByTestId(inputText);
-      const nameSearchRadio = screen.getByTestId(searchRadioSelector);
-      userEvent.click(nameSearchRadio);
-      const execSearch = screen.getByTestId(btnSearch);
-      userEvent.type(searchInput, 'a');
-      userEvent.click(execSearch);
-      const inputFirstLetter = screen.getByText(/first letter/i);
-      expect(inputFirstLetter).toBeInTheDocument();
-      userEvent.click(inputFirstLetter);
-      const mealsFirtsLetter = screen.getByRole('img', {
-        name: /lamb tomato and sweet spices/i,
-      });
-      expect(mealsFirtsLetter).toBeInTheDocument();
-      const unexpectedCard = screen.queryByTestId('12-recipe-card');
-      expect(expectedCard).toBeInTheDocument();
-      expect(unexpectedCard).toBeNull();
     });
+    const searchInput = screen.getByTestId(inputText);
+    const nameSearchRadio = screen.getByTestId(searchRadioSelector);
+    userEvent.click(nameSearchRadio);
+    const execSearch = screen.getByTestId(btnSearch);
+    userEvent.type(searchInput, 'a');
+    userEvent.click(execSearch);
+    const inputFirstLetter = screen.getByText(/first letter/i);
+    expect(inputFirstLetter).toBeInTheDocument();
+    userEvent.click(inputFirstLetter);
+    const unexpectedCard = screen.queryByTestId('12-recipe-card');
+    expect(unexpectedCard).toBeNull();
   });
 
   it('should test the function which redirects in case of one element', async () => {
@@ -84,20 +80,26 @@ describe('testing the Search Bar component', () => {
     await waitFor(() => {
       const searchBtn = screen.getByTestId(lupa);
       userEvent.click(searchBtn);
-      const searchInput = screen.getByTestId(inputText);
-      const nameSearchRadio = screen.getByTestId(searchRadioSelector);
-      userEvent.click(nameSearchRadio);
-      const execSearch = screen.getByTestId(btnSearch);
-      userEvent.type(searchInput, 'Corba');
-      userEvent.click(execSearch);
-      waitForElementToBeRemoved(() => screen.getByTestId('page-title'));
-      const { location: { pathname } } = history;
-      expect(pathname).toBe('/meals/52977');
     });
+    const searchInput = screen.getByTestId(inputText);
+    const nameSearchRadio = screen.getByTestId(searchRadioSelector);
+    userEvent.click(nameSearchRadio);
+    const execSearch = screen.getByTestId(btnSearch);
+    userEvent.type(searchInput, 'Corba');
+    userEvent.click(execSearch);
+    await waitFor(() => {
+      const linkCorba = screen.getByRole('heading', {
+        name: /corba/i,
+      });
+      userEvent.click(linkCorba);
+    });
+    // waitForElementToBeRemoved(() => screen.getByTestId('page-title'));
+    const { location: { pathname } } = history;
+    expect(pathname).toBe('/meals/52977');
   });
 
   test('Procurando por 1 letra e colocando mais de 1', async () => {
-    jest.spyOn(window, 'alert').mockImplementation(() => {});
+    jest.spyOn(global, 'alert').mockImplementation(() => {});
     const { history } = renderWithRouter(<App />);
     history.push('/meals');
     await waitFor(() => {
@@ -109,10 +111,27 @@ describe('testing the Search Bar component', () => {
       const execSearch = screen.getByTestId(btnSearch);
       userEvent.type(searchInput, 'ba');
       userEvent.click(execSearch);
-      expect(window.alert).toBeCalledWith('Your search must have only 1 (one) character');
+      expect(global.alert).toBeCalledWith('Your search must have only 1 (one) character');
     });
   });
-  // test('',() => {
-  // });
+
+  test('Testa se ao clicar em drink, abre o drink normalmente', async () => {
+    const { history } = renderWithRouter(<App />);
+    history.push('/drinks');
+    await waitFor(() => {
+      const searchBtn = screen.getByTestId(lupa);
+      userEvent.click(searchBtn);
+    });
+    const searchInput = screen.getByTestId(inputText);
+    const nameSearchRadio = screen.getByTestId(searchRadioSelector);
+    userEvent.click(nameSearchRadio);
+    const execSearch = screen.getByTestId(btnSearch);
+    userEvent.type(searchInput, 'A1');
+    userEvent.click(execSearch);
+    await waitFor(() => {
+      const { location: { pathname } } = history;
+      expect(pathname).toBe('/drinks/17222');
+    });
+  });
 });
 // usar global alert no lugar de window.
