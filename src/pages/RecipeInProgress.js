@@ -24,7 +24,6 @@ function RecipeInProgress() {
     }
     fetchData();
   }, [deleteIdFromPath, id, path]);
-  console.log(details);
   return (
 
     <div>

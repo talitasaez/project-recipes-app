@@ -21,35 +21,31 @@ function Recipes() {
   useEffect(() => {
     async function fetchData() {
       const recipes = await getRecipes('name', '', path);
-      if (recipes) setDisplayRecipes(recipes);
-      else setDisplayRecipes([]);
+      setDisplayRecipes(recipes);
 
       const categorys = await getRecipes('category', '', path);
-      if (categorys) setCategoryList(categorys);
-      else setCategoryList([]);
+      setCategoryList(categorys);
     }
     fetchData();
   }, [path, setDisplayRecipes]);
 
   const handleAllCategorys = async () => {
     const recipes = await getRecipes('name', '', path);
-    if (recipes) setDisplayRecipes(recipes);
-    else setDisplayRecipes([]);
+    setDisplayRecipes(recipes);
   };
 
   const handleCategoryChanger = async (categoryName) => {
     if (toggleCategory === false) {
       const recipes = await getRecipes('byCategory', categoryName, path);
-      if (recipes) setDisplayRecipes(recipes);
-      else setDisplayRecipes([]);
+      setDisplayRecipes(recipes);
     } else {
       handleAllCategorys();
     }
-
     setToggleCategory(!toggleCategory);
   };
 
   const titleToHeader = path === '/meals' ? 'Meals' : 'Drinks';
+
   return (
     <main>
       <Header title={ titleToHeader } />
