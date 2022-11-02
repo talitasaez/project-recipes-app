@@ -1,0 +1,36 @@
+.carousel-container {
+  background: #f1f1f1;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.main-recomendations {
+  display: flex;
+  flex-direction: column;
+  width: 800px;
+}
+
+.carousel {
+  display: flex;
+  overflow-x: hidden;
+  width: 80%;
+}
+
+.carousel_item {
+  width: 180px;
+}
+
+.carousel_item img {
+  width: 180px;
+}
+
+.indicators {
+  display: flex;
+  justify-content: center;
+}
+
+.indicators > button {
+  margin: 5px;
+}

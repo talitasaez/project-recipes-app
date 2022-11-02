@@ -66,3 +66,12 @@
     transform: rotate(-10deg);
   }
 }
+
+.btn-start-recipe {
+  border: 3px solid red;
+  bottom: 0;
+  cursor: pointer;
+  position: fixed;
+  right: 50%;
+  width: 300px;
+}
