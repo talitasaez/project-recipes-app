@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import copy from 'clipboard-copy';
 import PropTypes from 'prop-types';
+import '../styles/RecipeInProgress.css';
 
 function RecipeInProgressCard(props) {
   const { id } = useParams();
@@ -10,7 +11,7 @@ function RecipeInProgressCard(props) {
   const { recipe, srcVideo } = props;
   const [listaIngredientes, setListaIngredientes] = useState([]);
   const [shareAlert, setShareAlert] = useState(false);
-  // const [checked, setChecked] = useState([]);
+  const [ingredientsChecked, setIngredientsChecked] = useState([]);
 
   const {
     strMeal,
@@ -59,15 +60,17 @@ function RecipeInProgressCard(props) {
     recipeCategory = strAlcoholic;
     mealOrDrink = 'drinks';
   }
+  const handleChangeChecked = (e) => {
+    const addChecked = e;
+    setIngredientsChecked([...ingredientsChecked, addChecked]);
+    console.log(addChecked);
+  };
 
-  // const handleIngredientClick = (i) => {
-  //   const newPush = i[1];
-  //   setChecked([...checked, newPush]);
-  // };
-  // const handleClassName = (a) => {
-  //   const isDone = checked.some((e) => e === a[1]);
-  //   return isDone;
-  // };
+  const handleIngredientsClass = (a) => {
+    const includeClass = ingredientsChecked.some((element) => element === a);
+    return includeClass;
+    // console.log(includeClass);
+  };
 
   return (
     <div>
@@ -77,19 +80,19 @@ function RecipeInProgressCard(props) {
       <h3> Ingredientes </h3>
       <div>
         {listaIngredientes.map((ingredient, index) => (
-          // const trueFa = handleClassName(i);
           <div data-testid={ `${index}-ingredient-step` } key={ index }>
             <label
               htmlFor={ ingredient }
               data-testid={ `${index}-ingredient-step` }
+              className={ handleIngredientsClass ? 'checked' : 'notChecked' }
             >
               {ingredient}
               <input
                 data-testid={ `${index}-ingredient-name-and-measure` }
                 type="checkbox"
                 id={ ingredient }
+                onChange={ (() => handleChangeChecked(ingredient)) }
               />
-              {/* {`${i[1]} ${measures[index][1] || ''}`} */}
             </label>
           </div>
         ))}
