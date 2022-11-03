@@ -32,6 +32,7 @@ function Profile() {
         <button
           type="button"
           data-testid="profile-logout-btn"
+          onClick={ () => localStorage.clear() }
         >
           Logout
         </button>
