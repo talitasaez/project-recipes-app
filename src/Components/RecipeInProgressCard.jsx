@@ -60,6 +60,7 @@ function RecipeInProgressCard(props) {
     recipeCategory = strAlcoholic;
     mealOrDrink = 'drinks';
   }
+
   const handleChangeChecked = (e) => {
     const addChecked = e;
     setIngredientsChecked([...ingredientsChecked, addChecked]);
@@ -68,8 +69,8 @@ function RecipeInProgressCard(props) {
 
   const handleIngredientsClass = (a) => {
     const includeClass = ingredientsChecked.some((element) => element === a);
+    console.log(includeClass, 'includeClass');
     return includeClass;
-    // console.log(includeClass, 'includeClass');
   };
 
   return (
@@ -84,14 +85,14 @@ function RecipeInProgressCard(props) {
             <label
               htmlFor={ ingredient }
               data-testid={ `${index}-ingredient-step` }
-              className={ handleIngredientsClass ? 'checked' : 'notChecked' }
+              // className={ handleIngredientsClass(ingredient) ? 'checked' : 'notChecked' }
             >
               {ingredient}
               <input
                 data-testid={ `${index}-ingredient-name-and-measure` }
                 type="checkbox"
                 id={ ingredient }
-                onChange={ (() => handleChangeChecked(ingredient)) }
+                onClick={ (() => handleChangeChecked(ingredient)) }
               />
             </label>
           </div>
