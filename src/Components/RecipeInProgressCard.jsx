@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import copy from 'clipboard-copy';
 import PropTypes from 'prop-types';
+// import '../styles/RecipeInProgress.css';
 
 function RecipeInProgressCard(props) {
   const { id } = useParams();
@@ -10,6 +11,7 @@ function RecipeInProgressCard(props) {
   const { recipe, srcVideo } = props;
   const [listaIngredientes, setListaIngredientes] = useState([]);
   const [shareAlert, setShareAlert] = useState(false);
+  const [ingredientsChecked, setIngredientsChecked] = useState([]);
 
   const {
     strMeal,
@@ -59,6 +61,18 @@ function RecipeInProgressCard(props) {
     mealOrDrink = 'drinks';
   }
 
+  const handleChangeChecked = (e) => {
+    const addChecked = e;
+    setIngredientsChecked([...ingredientsChecked, addChecked]);
+    console.log(addChecked, 'ADD');
+  };
+
+  const handleIngredientsClass = (a) => {
+    const includeClass = ingredientsChecked.some((element) => element === a);
+    console.log(includeClass, 'includeClass');
+    return includeClass;
+  };
+
   return (
     <div>
       <h1 data-testid="recipe-title">{ nameRecipe }</h1>
@@ -66,23 +80,23 @@ function RecipeInProgressCard(props) {
       <img data-testid="recipe-photo" src={ imgSrc } alt={ nameRecipe } />
       <h3> Ingredientes </h3>
       <div>
-        {listaIngredientes.map((ingredient, index) => {
-          console.log(ingredient);
-          return (
-            <div data-testid={ `${index}-ingredient-step` } key={ index }>
-              <label
-                htmlFor={ ingredient }
-              >
-                {ingredient}
-                <input
-                  data-testid={ `${index}-ingredient-name-and-measure` }
-                  type="checkbox"
-                  id={ ingredient }
-                />
-              </label>
-            </div>
-          );
-        })}
+        {listaIngredientes.map((ingredient, index) => (
+          <div data-testid={ `${index}-ingredient-step` } key={ index }>
+            <label
+              htmlFor={ ingredient }
+              data-testid={ `${index}-ingredient-step` }
+              className={ handleIngredientsClass(ingredient) ? 'checked' : 'notChecked' }
+            >
+              {ingredient}
+              <input
+                data-testid={ `${index}-ingredient-name-and-measure` }
+                type="checkbox"
+                id={ ingredient }
+                onClick={ (() => handleChangeChecked(ingredient)) }
+              />
+            </label>
+          </div>
+        ))}
 
       </div>
       <p data-testid="instructions">
