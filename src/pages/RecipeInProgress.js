@@ -3,7 +3,7 @@ import { useParams, useHistory } from 'react-router-dom';
 // import RecipeInfo from '../Components/RecipeInfo';
 import getRecipes from '../helpers/getRecipes';
 // import PropTypes from 'prop-types';
-import RecipeDetailCard from '../Components/RecipeDetailCard';
+import RecipeInProgressCard from '../Components/RecipeInProgressCard';
 
 function RecipeInProgress() {
   const { id } = useParams();
@@ -27,13 +27,7 @@ function RecipeInProgress() {
   return (
 
     <div>
-      <RecipeDetailCard recipe={ details } srcVideo={ srcVideo } />
-      <button
-        type="button"
-        data-testid="share-btn"
-      >
-        Compartilhar
-      </button>
+      <RecipeInProgressCard recipe={ details } srcVideo={ srcVideo } />
 
       <button
         type="button"
