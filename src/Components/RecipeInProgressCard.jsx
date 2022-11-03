@@ -85,7 +85,7 @@ function RecipeInProgressCard(props) {
             <label
               htmlFor={ ingredient }
               data-testid={ `${index}-ingredient-step` }
-              // className={ handleIngredientsClass(ingredient) ? 'checked' : 'notChecked' }
+              className={ handleIngredientsClass(ingredient) ? 'checked' : 'notChecked' }
             >
               {ingredient}
               <input
