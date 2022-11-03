@@ -10,6 +10,7 @@ function RecipeInProgressCard(props) {
   const { recipe, srcVideo } = props;
   const [listaIngredientes, setListaIngredientes] = useState([]);
   const [shareAlert, setShareAlert] = useState(false);
+  // const [checked, setChecked] = useState([]);
 
   const {
     strMeal,
@@ -59,6 +60,15 @@ function RecipeInProgressCard(props) {
     mealOrDrink = 'drinks';
   }
 
+  // const handleIngredientClick = (i) => {
+  //   const newPush = i[1];
+  //   setChecked([...checked, newPush]);
+  // };
+  // const handleClassName = (a) => {
+  //   const isDone = checked.some((e) => e === a[1]);
+  //   return isDone;
+  // };
+
   return (
     <div>
       <h1 data-testid="recipe-title">{ nameRecipe }</h1>
@@ -66,23 +76,23 @@ function RecipeInProgressCard(props) {
       <img data-testid="recipe-photo" src={ imgSrc } alt={ nameRecipe } />
       <h3> Ingredientes </h3>
       <div>
-        {listaIngredientes.map((ingredient, index) => {
-          console.log(ingredient);
-          return (
-            <div data-testid={ `${index}-ingredient-step` } key={ index }>
-              <label
-                htmlFor={ ingredient }
-              >
-                {ingredient}
-                <input
-                  data-testid={ `${index}-ingredient-name-and-measure` }
-                  type="checkbox"
-                  id={ ingredient }
-                />
-              </label>
-            </div>
-          );
-        })}
+        {listaIngredientes.map((ingredient, index) => (
+          // const trueFa = handleClassName(i);
+          <div data-testid={ `${index}-ingredient-step` } key={ index }>
+            <label
+              htmlFor={ ingredient }
+              data-testid={ `${index}-ingredient-step` }
+            >
+              {ingredient}
+              <input
+                data-testid={ `${index}-ingredient-name-and-measure` }
+                type="checkbox"
+                id={ ingredient }
+              />
+              {/* {`${i[1]} ${measures[index][1] || ''}`} */}
+            </label>
+          </div>
+        ))}
 
       </div>
       <p data-testid="instructions">

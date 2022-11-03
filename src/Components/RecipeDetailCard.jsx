@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
-import copy from 'clipboard-copy';
 import PropTypes from 'prop-types';
 
 function RecipeDetailCard(props) {
