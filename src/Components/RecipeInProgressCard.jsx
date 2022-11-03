@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import copy from 'clipboard-copy';
 import PropTypes from 'prop-types';
-import '../styles/RecipeInProgress.css';
+// import '../styles/RecipeInProgress.css';
 
 function RecipeInProgressCard(props) {
   const { id } = useParams();
