@@ -1,5 +1,5 @@
 import React from 'react';
-import { screen, waitForElementToBeRemoved, waitFor, act } from '@testing-library/react';
+import { screen, waitFor, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import renderWithRouter from '../helpers/renderWithRouter';
 import App from '../App';
@@ -38,7 +38,7 @@ describe('testing the Search Bar component', () => {
       history.push('/meals');
     });
     await waitFor(() => {
-      screen.findByTestId('0-recipe-card');
+      screen.getByTestId('0-recipe-card');
     });
     const searchBtn = screen.getByTestId(lupa);
     userEvent.click(searchBtn);
@@ -49,8 +49,8 @@ describe('testing the Search Bar component', () => {
     userEvent.type(searchInput, 'xablau');
     userEvent.click(execSearch);
     await waitFor(() => {
-      waitForElementToBeRemoved(() => screen.getByTestId('0-recipe-card'));
-      expect(global.alert).toHaveBeenCalled();
+      // waitForElementToBeRemoved(() => screen.getByTestId('0-recipe-card'));
+      expect(global.alert).toBeCalledWith('Sorry, we haven\'t found any recipes for these filters.');
     });
   });
 
@@ -131,6 +131,45 @@ describe('testing the Search Bar component', () => {
     await waitFor(() => {
       const { location: { pathname } } = history;
       expect(pathname).toBe('/drinks/17222');
+    });
+  });
+
+  test('Testa ingredientes', async () => {
+    jest.spyOn(global, 'alert').mockImplementation(() => {});
+    const { history } = renderWithRouter(<App />);
+    history.push('/meals');
+    await waitFor(() => {
+      const searchBtn = screen.getByTestId(lupa);
+      userEvent.click(searchBtn);
+    });
+    const searchInput = screen.getByTestId(inputText);
+    const ingredientInput = screen.getByTestId('ingredient-search-radio');
+    userEvent.click(ingredientInput);
+    userEvent.type(searchInput, 'javaEspirito');
+    const execSearch = screen.getByTestId(btnSearch);
+    userEvent.click(execSearch);
+    await waitFor(() => {
+      expect(global.alert).toBeCalledWith('Sorry, we haven\'t found any recipes for these filters.');
+    });
+  });
+
+  test('Testa ingredientes que existem', async () => {
+    const { history } = renderWithRouter(<App />);
+    history.push('/meals');
+    await waitFor(() => {
+      const searchBtn = screen.getByTestId(lupa);
+      userEvent.click(searchBtn);
+    });
+    const searchInput = screen.getByTestId(inputText);
+    const ingredientInput = screen.getByTestId('ingredient-search-radio');
+    userEvent.click(ingredientInput);
+    userEvent.type(searchInput, 'chicken');
+    const execSearch = screen.getByTestId(btnSearch);
+    userEvent.click(execSearch);
+    await waitFor(() => {
+      // const chickenRecipe = screen.findByText(/brown stew chicken/i);
+      // expect(chickenRecipe).toBeInTheDocument();
+      expect(screen.findByText(/brown stew chicken/i)).toBeInTheDocument();
     });
   });
 });

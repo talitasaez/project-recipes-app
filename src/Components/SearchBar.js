@@ -15,14 +15,17 @@ export default function SearchBar() {
     global.alert('Sorry, we haven\'t found any recipes for these filters.');
   };
 
-  const createFirstLetterAlert = () => {
-    if (type === 'first-letter' && searchValue.length > 1) {
-      global.alert('Your search must have only 1 (one) character');
-    }
-  };
+  // const createFirstLetterAlert = () => {
+  //   if (type === 'first-letter' && searchValue.length > 1) {
+  //     global.alert('Your search must have only 1 (one) character');
+  //   }
+  // };
 
   const setSearch = async () => {
-    createFirstLetterAlert();
+    // createFirstLetterAlert();
+    if (type === 'first-letter' && searchValue.length > 1) {
+      return global.alert('Your search must have only 1 (one) character');
+    }
     const recipes = await getRecipes(type, searchValue, pathname);
     if (recipes === null) {
       createAlertNoRecipes();
