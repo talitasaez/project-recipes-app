@@ -63,13 +63,13 @@ function RecipeInProgressCard(props) {
   const handleChangeChecked = (e) => {
     const addChecked = e;
     setIngredientsChecked([...ingredientsChecked, addChecked]);
-    console.log(addChecked);
+    console.log(addChecked, 'ADD');
   };
 
   const handleIngredientsClass = (a) => {
     const includeClass = ingredientsChecked.some((element) => element === a);
     return includeClass;
-    // console.log(includeClass);
+    // console.log(includeClass, 'includeClass');
   };
 
   return (
