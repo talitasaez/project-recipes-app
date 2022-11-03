@@ -80,8 +80,9 @@ function RecipeDetails() {
 
   // CÓDIGO PROVISÓRIO ENQUANTO NÃO TEM O BOTÃO DE FINALIZAR RECEITA //
 
-  localStorage.setItem('doneRecipes', JSON.stringify([]));
+  localStorage.setItem('doneRecipes', JSON.stringify([{ id: 52977 }, { id: 54321 }]));
   const doneStorage = JSON.parse(localStorage.getItem('doneRecipes'));
+  console.log(doneStorage);
 
   const handleFav = useCallback(() => {
     const objToFav = mealOrDrink === 'meals' ? {
@@ -134,7 +135,7 @@ function RecipeDetails() {
       <Recomendations />
 
       {!doneStorage
-        .find((r) => r.id === details.meals[0].idMeal || details.drinks[0].idDrink)
+        .some((r) => r.id === Number(id))
         && (
           <Link
             to={
