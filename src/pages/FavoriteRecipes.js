@@ -5,6 +5,7 @@ function FavoriteRecipes() {
   return (
     <>
       <Header title="Favorite Recipes" icons={ { profile: true, search: false } } />
+      <p>Fav</p>
       <div>
         <button
           type="button"
@@ -26,10 +27,10 @@ function FavoriteRecipes() {
         </button>
       </div>
       <div>
-        <img
+        <p
           data-testid={ `${index}-horizontal-image` }
-          src={ imgSrc }
-          alt={ nameRecipe }
+          // src={ imgSrc }
+          // alt={ nameRecipe }
         />
         <h4 data-testid={ `${index}-horizontal-top-text` }>
           Categoria Receita
