@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import copy from 'clipboard-copy';
 import { useParams, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
