@@ -85,7 +85,7 @@ function DoneRecipes() {
           data-testid="filter-by-drink-btn"
           onClick={ filterButtons }
         >
-          Drinks
+          Drinkss
         </button>
       </div>
       {showItens(filter)}
