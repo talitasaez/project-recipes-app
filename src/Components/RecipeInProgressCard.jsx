@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import copy from 'clipboard-copy';
 import PropTypes from 'prop-types';
-// import '../styles/RecipeInProgress.css';
+import '../styles/RecipesInProgress.css';
 
 function RecipeInProgressCard(props) {
   const { id } = useParams();
@@ -11,7 +11,13 @@ function RecipeInProgressCard(props) {
   const { recipe, srcVideo } = props;
   const [listaIngredientes, setListaIngredientes] = useState([]);
   const [shareAlert, setShareAlert] = useState(false);
-  const [ingredientsChecked, setIngredientsChecked] = useState([]);
+  // const [ingredientsChecked, setIngredientsChecked] = useState([]);
+  const mealsOrDrinks = path.includes('/meals') ? 'meals' : 'drinks';
+  const [inProgress, setInProgress] = useState({});
+  const INNITIAL_STATE = {
+    drinks: {},
+    meals: {},
+  };
 
   const {
     strMeal,
@@ -61,17 +67,48 @@ function RecipeInProgressCard(props) {
     mealOrDrink = 'drinks';
   }
 
-  const handleChangeChecked = (e) => {
-    const addChecked = e;
-    setIngredientsChecked([...ingredientsChecked, addChecked]);
-    console.log(addChecked, 'ADD');
+  useEffect(() => {
+    const localStorageInProgress = JSON.parse(localStorage.getItem('inProgressRecipes'))
+      ? JSON.parse(localStorage.getItem('inProgressRecipes'))
+      : INNITIAL_STATE;
+    setInProgress(localStorageInProgress);
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('inProgressRecipes', JSON.stringify(inProgress));
+  }, [inProgress]);
+
+  const handleChangeChecked = ({ target }) => {
+    const { checked } = target;
+    const salvar = target.parentNode.innerText;
+    const prev = inProgress[mealsOrDrinks][id]
+      ? inProgress[mealsOrDrinks][id]
+      : [];
+    if (checked) {
+      target.parentNode.className = 'checked';
+      const listIngredientsChecked = [...prev, salvar];
+      setInProgress({
+        ...inProgress,
+        [mealsOrDrinks]: {
+          [id]: listIngredientsChecked,
+        },
+      });
+    } else {
+      target.parentNode.className = 'notChecked';
+      const notListChecked = inProgress[mealsOrDrinks][id]
+        .filter((ingredient) => ingredient !== salvar);
+      setInProgress({
+        ...inProgress,
+        [mealsOrDrinks]: {
+          [id]: notListChecked,
+        },
+      });
+    }
+    // console.log(listaIngredientes);
   };
 
-  const handleIngredientsClass = (a) => {
-    const includeClass = ingredientsChecked.some((element) => element === a);
-    console.log(includeClass, 'includeClass');
-    return includeClass;
-  };
+  const handleCheckedIn = (ingredient) => inProgress[mealsOrDrinks][id]
+    .includes(ingredient);
 
   return (
     <div>
@@ -80,22 +117,23 @@ function RecipeInProgressCard(props) {
       <img data-testid="recipe-photo" src={ imgSrc } alt={ nameRecipe } />
       <h3> Ingredientes </h3>
       <div>
-        {listaIngredientes.map((ingredient, index) => (
-          <div data-testid={ `${index}-ingredient-step` } key={ index }>
-            <label
-              htmlFor={ ingredient }
-              data-testid={ `${index}-ingredient-step` }
-              className={ handleIngredientsClass(ingredient) ? 'checked' : 'notChecked' }
-            >
-              {ingredient}
-              <input
-                data-testid={ `${index}-ingredient-name-and-measure` }
-                type="checkbox"
-                id={ ingredient }
-                onClick={ (() => handleChangeChecked(ingredient)) }
-              />
-            </label>
-          </div>
+        { listaIngredientes.map((ingredient, index) => (
+          <label
+            key={ index }
+            htmlFor={ ingredient }
+            data-testid={ `${index}-ingredient-step` }
+            // className={ `${handleCheckedIn(ingredient) ? 'checked' : 'notChecked'}` }
+          >
+            {ingredient}
+            <input
+              // data-testid={ `${index}-ingredient-name-and-measure` }
+              type="checkbox"
+              // id={ ingredient }
+              onClick={ handleChangeChecked }
+              defaultChecked={ () => handleCheckedIn(ingredient) }
+            />
+          </label>
+
         ))}
 
       </div>
