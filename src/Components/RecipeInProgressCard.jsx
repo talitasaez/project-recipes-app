@@ -28,7 +28,7 @@ function RecipeInProgressCard(props) {
     strAlcoholic,
     strInstructions,
   } = recipe;
-
+  console.log(recipe);
   let nameRecipe = '';
   let imgSrc = '';
   let recipeCategory = '';
@@ -104,12 +104,15 @@ function RecipeInProgressCard(props) {
         },
       });
     }
-    // console.log(listaIngredientes);
   };
 
-  const handleCheckedIn = (ingredient) => inProgress[mealsOrDrinks][id]
-    .includes(ingredient);
+  const handleCheckedIn = (ingredient) => {
+    if (inProgress[mealsOrDrinks][id]) {
+      return inProgress[mealsOrDrinks][id].includes(ingredient);
+    }
 
+    return false;
+  };
   return (
     <div>
       <h1 data-testid="recipe-title">{ nameRecipe }</h1>
@@ -122,12 +125,13 @@ function RecipeInProgressCard(props) {
             key={ index }
             htmlFor={ ingredient }
             data-testid={ `${index}-ingredient-step` }
-            // className={ `${handleCheckedIn(ingredient) ? 'checked' : 'notChecked'}` }
+            className={ `${handleCheckedIn(ingredient) ? 'checked' : 'notChecked'}` }
           >
             {ingredient}
             <input
               // data-testid={ `${index}-ingredient-name-and-measure` }
               type="checkbox"
+              checked={ handleCheckedIn(ingredient) }
               // id={ ingredient }
               onClick={ handleChangeChecked }
               defaultChecked={ () => handleCheckedIn(ingredient) }
