@@ -66,7 +66,7 @@ function RecipeInProgressCard(props) {
     recipeCategory = strAlcoholic;
     mealOrDrink = 'drinks';
   }
-
+  // falta arrumar lint linha 75 e fazer testes
   useEffect(() => {
     const localStorageInProgress = JSON.parse(localStorage.getItem('inProgressRecipes'))
       ? JSON.parse(localStorage.getItem('inProgressRecipes'))
