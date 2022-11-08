@@ -129,7 +129,7 @@ function RecipeInProgressCard(props) {
           >
             {ingredient}
             <input
-              // data-testid={ `${index}-ingredient-name-and-measure` }
+              data-testid={ `${index}-ingredient-name-and-measure` }
               type="checkbox"
               checked={ handleCheckedIn(ingredient) }
               // id={ ingredient }
