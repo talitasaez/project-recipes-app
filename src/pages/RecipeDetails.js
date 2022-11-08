@@ -130,7 +130,7 @@ function RecipeDetails() {
         ) : (
           <img src={ whiteHeartIcon } alt="not favorite" />
         )}
-        ;
+
       </button>
       <Recomendations />
 
