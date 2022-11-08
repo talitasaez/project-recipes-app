@@ -4,6 +4,8 @@ import { useParams, useHistory } from 'react-router-dom';
 import getRecipes from '../helpers/getRecipes';
 // import PropTypes from 'prop-types';
 import RecipeInProgressCard from '../Components/RecipeInProgressCard';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 
 function RecipeInProgress() {
   const { id } = useParams();
@@ -24,6 +26,69 @@ function RecipeInProgress() {
     }
     fetchData();
   }, [deleteIdFromPath, id, path]);
+
+  // function favOrNot() {
+  //   const getFavs = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  //   if (getFavs !== null) {
+  //     return getFavs.some((fav) => fav.id === id);
+  //   }
+  //   return false;
+  // }
+
+  // const [favorited, setFavorited] = useState(
+  //   favOrNot(),
+  // );
+  // const {
+  //   strMeal,
+  //   strMealThumb,
+  //   strDrink,
+  //   strDrinkThumb,
+  //   strCategory,
+  //   strAlcoholic,
+  //   strArea,
+  //   idMeal,
+  //   idDrink,
+  // } = details;
+
+  // let mealOrDrink = '';
+  // if (path.includes('/meals')) {
+  //   mealOrDrink = 'meals';
+  // } else {
+  //   mealOrDrink = 'drinks';
+  // }
+
+  // const handleFav = useCallback(() => {
+  //   const objToFav = mealOrDrink === 'meals' ? {
+  //     id,
+  //     type: mealOrDrink.substring(0, mealOrDrink.length - 1),
+  //     nationality: strArea,
+  //     category: strCategory,
+  //     alcoholicOrNot: '',
+  //     name: strMeal,
+  //     image: strMealThumb,
+  //   } : {
+  //     id,
+  //     type: mealOrDrink.substring(0, mealOrDrink.length - 1),
+  //     nationality: '',
+  //     category: strCategory,
+  //     alcoholicOrNot: strAlcoholic,
+  //     name: strDrink,
+  //     image: strDrinkThumb,
+  //   };
+  // const getFavs = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  // if (favorited) {
+  //   localStorage.setItem('favoriteRecipes', JSON.stringify(getFavs
+  //     .filter((fav) => fav.id !== id)));
+  //   setFavorited(false);
+  // } else {
+  //   localStorage.setItem('favoriteRecipes', JSON.stringify([objToFav]));
+  //   setFavorited(true);
+  // }
+  // }, [favorited,
+  //   id,
+  //   mealOrDrink,
+  //   strAlcoholic, strArea, strCategory, strDrink, strDrinkThumb, strMeal, strMealThumb]);
+
   return (
 
     <div>
@@ -31,9 +96,17 @@ function RecipeInProgress() {
 
       <button
         type="button"
+        // onClick={ handleFav }
         data-testid="favorite-btn"
+        // src={ favorited ? blackHeartIcon : whiteHeartIcon }
       >
         Favoritar
+        {/* {favorited ? (
+          <img src={ blackHeartIcon } alt="favorite" />
+        ) : (
+          <img src={ whiteHeartIcon } alt="not favorite" />
+        )} */}
+        {/* ; */}
       </button>
       <button
         type="button"
