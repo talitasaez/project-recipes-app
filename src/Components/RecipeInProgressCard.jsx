@@ -28,7 +28,7 @@ function RecipeInProgressCard(props) {
     strAlcoholic,
     strInstructions,
   } = recipe;
-  console.log(recipe);
+
   let nameRecipe = '';
   let imgSrc = '';
   let recipeCategory = '';
@@ -110,9 +110,9 @@ function RecipeInProgressCard(props) {
     if (inProgress[mealsOrDrinks][id]) {
       return inProgress[mealsOrDrinks][id].includes(ingredient);
     }
-
     return false;
   };
+  console.log(listaIngredientes);
   return (
     <div>
       <h1 data-testid="recipe-title">{ nameRecipe }</h1>
