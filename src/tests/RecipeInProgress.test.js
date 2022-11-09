@@ -3,6 +3,7 @@ import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../App';
 import renderWithRouter from '../helpers/renderWithRouter';
+import RecipeInProgress from '../pages/RecipeInProgress';
 
 describe('Testa RecipeInProgress', () => {
   test('Testa se está renderizando corretamente', async () => {
@@ -55,4 +56,34 @@ describe('Testa RecipeInProgress', () => {
     expect(checkboxFive).toBeChecked();
     expect(checkboxSix).toBeChecked();
   });
+  it('Testa caso LocalStorage', async () => {
+    const value = [{ id: '13501', type: 'drink' }];
+
+    localStorage.setItem('favoriteRecipes', JSON.stringify(value));
+
+    jest.spyOn(Object.getPrototypeOf(global.localStorage), 'getItem')
+      .mockReturnValue(JSON.stringify(value));
+
+    renderWithRouter(<RecipeInProgress />);
+
+    await waitFor(() => expect(screen.getByRole('heading', {
+      name: /ingredientes/i,
+    })).toBeInTheDocument());
+
+    expect(localStorage.getItem).toHaveBeenCalled();
+  });
+  // it('Testa caso não tenha LocalStorage', async () => {
+  //   jest.spyOn(Object.getPrototypeOf(global.localStorage), 'getItem')
+  //     .mockReturnValue(JSON.stringify(''));
+
+  //   renderWithRouterAndContext(<App />, '/animal');
+
+  //   await waitFor(() => expect(screen.getByText('DOGS VS CATS')).toBeInTheDocument());
+
+  //   expect(global.alert).toHaveBeenCalledTimes(1);
+
+  //   screen.getByText('não existe email');
+
+  //   expect(localStorage.getItem).toHaveBeenCalled();
+  // });
 });
