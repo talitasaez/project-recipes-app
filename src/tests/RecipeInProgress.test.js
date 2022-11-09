@@ -56,7 +56,7 @@ describe('Testa RecipeInProgress', () => {
     expect(checkboxFive).toBeChecked();
     expect(checkboxSix).toBeChecked();
   });
-  it('Testa caso LocalStorage', async () => {
+  test('Testa caso LocalStorage', async () => {
     const value = [{ id: '13501', type: 'drink' }];
 
     localStorage.setItem('favoriteRecipes', JSON.stringify(value));
