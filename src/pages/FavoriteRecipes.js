@@ -1,58 +1,37 @@
 import React from 'react';
+import FavoriteRecipeCard from '../Components/FavoriteRecipeCard';
 import Header from '../Components/Header';
 
 function FavoriteRecipes() {
+  const favoriteItens = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  console.log(favoriteItens);
   return (
-    <>
+    <div>
       <Header title="Favorite Recipes" icons={ { profile: true, search: false } } />
-      {/* <p>Fav</p>
-      <div>
-        <button
-          type="button"
-          data-testid="filter-by-all-btn"
-        >
-          All
-        </button>
-        <button
-          type="button"
-          data-testid="filter-by-meal-btn"
-        >
-          Meals
-        </button>
-        <button
-          type="button"
-          data-testid="filter-by-drink-btn"
-        >
-          Drinks
-        </button>
-      </div>
-      <div>
-        <img
-          data-testid={ `${index}-horizontal-image` }
-          // src={ imgSrc }
-          // alt={ nameRecipe }
-        />
-        <h4 data-testid={ `${index}-horizontal-top-text` }>
-          Categoria Receita
-        </h4>
-        <h3 data-testid={ `${index}-horizontal-name` }>
-          Nome Da Receita
-        </h3>
-        <button
-          type="button"
-          data-testid={ `${index}-horizontal-share-btn` }
-        >
-          Compartilhar
-        </button>
-        <button
-          type="button"
-          data-testid={ `${index}-horizontal-favorite-btn` }
-        >
-          Favoritar
-        </button> */}
-      {/* </div> */}
+      <button
+        type="button"
+        data-testid="filter-by-all-btn"
+      >
+        All
+      </button>
+      <button
+        type="button"
+        data-testid="filter-by-meal-btn"
+      >
+        Meals
+      </button>
+      <button
+        type="button"
+        data-testid="filter-by-drink-btn"
+      >
+        Drinks
+      </button>
 
-    </>
+      { favoriteItens
+        && favoriteItens.map((recipe, index) => (
+          <FavoriteRecipeCard index={ index } recipe={ recipe } key={ index } />
+        ))}
+    </div>
   );
 }
 
