@@ -3,20 +3,47 @@ import Header from '../Components/Header';
 import { mapItensMeals, mapItensDrinks } from '../helpers/mapItemsDone';
 
 function DoneRecipes() {
-  const [filter, setFilter] = useState();
+  const [showCopy, setShowCopy] = useState(false);
+  const [filter, setFilter] = useState('all');
   const findNone = 'Nenhuma Receita Concluida!';
 
-  const doneItensLocal = JSON.parse(localStorage.getItem('doneRecipes'));
+  const doneItensLocal = [
+    {
+      id: '52771',
+      type: 'meal',
+      nationality: 'Italian',
+      category: 'Vegetarian',
+      alcoholicOrNot: '',
+      name: 'Spicy Arrabiata Penne',
+      image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
+      doneDate: '23/06/2020',
+      tags: ['Pasta', 'Curry'],
+    },
+    {
+      id: '178319',
+      type: 'drink',
+      nationality: '',
+      category: 'Cocktail',
+      alcoholicOrNot: 'Alcoholic',
+      name: 'Aquamarine',
+      image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
+      doneDate: '23/06/2020',
+      tags: [],
+    },
+  ];
 
+  // const doneItensLocal = JSON.parse(localStorage.getItem('doneRecipes'));
+
+  console.log(showCopy);
   const filterButtons = ({ target }) => {
     const { name } = target;
-    if (name === 'all') setFilter();
+    if (name === 'all') setFilter('all');
     if (name === 'meals') setFilter('meals');
     if (name === 'drinks') setFilter('drinks');
   };
 
   const showItens = (infoFiltro) => {
-    if (infoFiltro === undefined) {
+    if (infoFiltro === 'all') {
       return doneItensLocal !== null ? (
         <div>
           {

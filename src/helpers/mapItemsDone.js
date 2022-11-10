@@ -113,6 +113,17 @@ export const mapItensDrinks = (element, index, setShowCopy) => (
           { element.doneDate }
         </p>
 
+        {
+          element.tags.map((tag) => (
+            <p
+              key={ tag }
+              data-testid={ `${index}-${tag}-horizontal-tag` }
+            >
+              {tag}
+            </p>
+          ))
+        }
+
         <button
           type="button"
           onClick={ () => {
